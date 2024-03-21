@@ -13,7 +13,8 @@ class WordController extends Controller
      */
     public function index()
     {
-        //
+        $words = Word::orderBy('term')->orderByDesc('created_at')->get();
+        return view('admin.words.index', compact('words'));
     }
 
     /**
@@ -37,7 +38,7 @@ class WordController extends Controller
      */
     public function show(Word $word)
     {
-        //
+        return view('admin.words.show', $word);
     }
 
     /**
