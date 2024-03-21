@@ -21,7 +21,7 @@ class WordController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.words.create', ['word' => new Word()]);
     }
 
     /**
@@ -29,7 +29,15 @@ class WordController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $word = new Word();
+        $word->fill($data);
+        $word->save();
+
+        //! Provvisoria da cancellare
+        return view('admin.home');
+        // TODO Definitiva da decommentare
+        // return to_route('admin.words.show', $word->id);
     }
 
     /**
