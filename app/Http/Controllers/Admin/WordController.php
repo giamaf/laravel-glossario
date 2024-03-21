@@ -35,10 +35,7 @@ class WordController extends Controller
         $word->fill($data);
         $word->save();
 
-        //! Provvisoria da cancellare
-        return view('admin.home');
-        // TODO Definitiva da decommentare
-        // return to_route('admin.words.show', $word->id);
+        return to_route('admin.words.show', $word->id);
     }
 
     /**
