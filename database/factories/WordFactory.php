@@ -17,7 +17,8 @@ class WordFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'term' => fake()->word(),
+            'description' => fake()->paragraph(10, true)
         ];
     }
 }
