@@ -51,7 +51,7 @@ class WordController extends Controller
      */
     public function edit(Word $word)
     {
-        //
+        return view('admin.words.edit', compact('word'));
     }
 
     /**
@@ -59,7 +59,16 @@ class WordController extends Controller
      */
     public function update(Request $request, Word $word)
     {
-        //
+        // // $request->validate([
+        //     // REgolaattributi
+        //     'name' => 'required|string|max:255',
+        // ]);
+        $data= $request->all();
+        $word->term= $data['term'];
+        $word->description= $data['description'];
+        $word->save();
+    
+        return redirect()->route('admin.index')->with('success', 'Word updated successfully');
     }
 
     /**
