@@ -53,14 +53,16 @@ class WordController extends Controller
      */
     public function update(Request $request, Word $word)
     {
-        $request->validate([
-            // REgolaattributi
-            'name' => 'required|string|max:255',
-        ]);
+        // // $request->validate([
+        //     // REgolaattributi
+        //     'name' => 'required|string|max:255',
+        // ]);
+        $data= $request->all();
+        $word->term= $data['term'];
+        $word->description= $data['description'];
+        $word->save();
     
-        $word->update($request->all());
-    
-        return redirect()->route('index')->with('success', 'Word updated successfully');
+        return redirect()->route('admin.index')->with('success', 'Word updated successfully');
     }
 
     /**
