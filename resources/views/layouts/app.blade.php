@@ -5,7 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ config('app.name', 'Glossario') }} | @yield('title')</title>
-
+    <link rel="icon" href="{{ Vite::asset('resources/img/logo.png')}}">
+    
     <style> 
     body{
         visibility: hidden;
