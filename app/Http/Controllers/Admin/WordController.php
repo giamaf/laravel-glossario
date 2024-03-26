@@ -52,7 +52,9 @@ class WordController extends Controller
         $word->fill($data);
         $word->save();
 
-        return to_route('admin.words.show', $word->id)->with('message', 'Termine creato con successo')->with('type', 'success');
+        return to_route('admin.words.show', $word->id)
+            ->with('message', 'Termine creato con successo')
+            ->with('type', 'success');
     }
 
     /**
@@ -93,11 +95,14 @@ class WordController extends Controller
         );
 
         $data = $request->all();
-        $word->term = $data['term'];
-        $word->description = $data['description'];
-        $word->save();
+        $word->update($data);
 
-        return redirect()->route('admin.index')->with('message', 'Termine modificato con successo')->with('type', 'success');
+        // $word->term = $data['term'];
+        // $word->description = $data['description'];
+        // $word->save();
+
+        //todo Fixare il messaggio dell'alert all'update
+        return to_route('admin.words.show', $word)->with('message', 'Termine modificato con successo');
     }
 
     /**
