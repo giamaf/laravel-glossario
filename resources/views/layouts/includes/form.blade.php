@@ -1,4 +1,4 @@
-@if ($word->exsist)
+@if ($word->exists)
     <form class="row row-gap-3 " action="{{ route('admin.words.update', $word->id) }}" method="POST">
         @method('PUT')
     @else

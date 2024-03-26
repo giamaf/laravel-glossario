@@ -79,7 +79,7 @@ class WordController extends Controller
     public function update(Request $request, Word $word)
     {
         // Validazione
-        $request->validate(
+        $data = $request->validate(
             [
                 'term' => ['required', 'string', 'min:2', 'max:30', Rule::unique('words')->ignore($word->id)],
                 'description' => ['string', 'required',]
@@ -94,15 +94,12 @@ class WordController extends Controller
             ]
         );
 
-        $data = $request->all();
         $word->update($data);
 
-        // $word->term = $data['term'];
-        // $word->description = $data['description'];
-        // $word->save();
-
         //todo Fixare il messaggio dell'alert all'update
-        return to_route('admin.words.show', $word)->with('message', 'Termine modificato con successo');
+        return to_route('admin.words.show', $word->id)
+            ->with('message', 'Termine modificato con successo')
+            ->with('type', 'warning');
     }
 
     /**
