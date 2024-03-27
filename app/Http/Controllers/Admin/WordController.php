@@ -34,7 +34,6 @@ class WordController extends Controller
      */
     public function store(Request $request, Word $word)
     {
-
         // Validazione
         $request->validate(
             [
@@ -57,7 +56,7 @@ class WordController extends Controller
         $word->save();
 
 
-        if (Arr::exists($data, 'label') && Arr::exists($data, 'url')) {
+        if (($data['label']) && ($data['url'])) {
             $new_link = new Link();
             $new_link->word_id = $word->id;
             $new_link->fill($data);
