@@ -11,6 +11,6 @@
     <hr>
 
     {{-- Form --}}
-    @include('layouts.includes.form')
+    @include('layouts.includes.words.form')
 
 @endsection
