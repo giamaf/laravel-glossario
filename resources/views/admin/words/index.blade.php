@@ -37,7 +37,7 @@
                 <td>
                   <div class="d-flex flex-column text-center">
                     @forelse ($word->links as $link)
-                    <a href="{{ $link->url }}">{{ $link->label }}</a>
+                    <a href="{{ $link->url }}" target="_blank">{{ $link->label }}</a>
                   @empty
                     <span></span>
                   @endforelse

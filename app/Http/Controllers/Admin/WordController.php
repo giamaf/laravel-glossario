@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Word;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Link;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 
@@ -32,6 +34,7 @@ class WordController extends Controller
      */
     public function store(Request $request, Word $word)
     {
+
         // Validazione
         $request->validate(
             [
@@ -52,6 +55,14 @@ class WordController extends Controller
         $word = new Word();
         $word->fill($data);
         $word->save();
+
+
+        if (Arr::exists($data, 'label') && Arr::exists($data, 'url')) {
+            $new_link = new Link();
+            $new_link->word_id = $word->id;
+            $new_link->fill($data);
+            $new_link->save();
+        }
 
         return to_route('admin.words.show', $word->id)
             ->with('message', 'Termine creato con successo')

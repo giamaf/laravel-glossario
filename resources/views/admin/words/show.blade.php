@@ -16,7 +16,7 @@
 <div class="mt-2">
     <strong class="me-2">Link collegati:</strong>
     @forelse ($word->links as $link)
-    <a href="{{ $link->url }}" class="me-2">{{ $link->label }}</a>
+    <a href="{{ $link->url }}" class="me-2" target="_blank">{{ $link->label }}</a>
     @empty
     <span>Nessuno.</span>
     @endforelse          
