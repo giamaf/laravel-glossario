@@ -23,4 +23,9 @@ class Word extends Model
     {
         return substr($this->description, 0, $length) . '...';
     }
+
+    public function links()
+    {
+        return $this->hasMany(Link::class);
+    }
 }
