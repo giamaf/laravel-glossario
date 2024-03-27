@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 use App\Http\Controllers\Guest\HomeController as GuestHomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\WordController;
+use App\Http\Controllers\LinkController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -44,6 +45,9 @@ Route::prefix('/admin')->middleware('auth')->name('admin.')->group(function () {
 
     //* Rotte Admin Word CRUD
     Route::resource('words', WordController::class)->withTrashed(['show', 'edit', 'update']);
+
+    // Rotte Admin Link CRUD
+    Route::resource('links', LinkController::class);
 });
 
 
