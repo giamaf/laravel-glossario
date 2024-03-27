@@ -20,7 +20,7 @@
         <thead>
           <tr>
             <th scope="col">#</th>
-            <th scope="col">Titolo</th>
+            <th scope="col">Termine</th>
             <th scope="col">Descrizione</th>
             <th scope="col" class="text-center">Data creazione</th>
             <th scope="col" class="text-center">Ultima modifica</th>
@@ -71,7 +71,6 @@
 
 
 @section('scripts')
-    {{--TODO Cestino 
         <script>
         const deleteForm = document.getElementById('delete-form');
 
@@ -82,5 +81,5 @@
 
             if(confirmation) deleteForm.submit();
         });
-    </script> --}}
+    </script>
 @endsection
