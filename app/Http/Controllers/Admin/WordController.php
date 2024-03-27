@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Word;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 
 class WordController extends Controller
@@ -111,5 +112,32 @@ class WordController extends Controller
 
         //todo Inserire messaggi di feedback
         return to_route('admin.words.index');
+    }
+
+    // # SOFT DELETE
+
+    public function trash()
+    {
+        $words = Word::onlyTrashed()->get();
+
+        return view('admin.words.trash', compact('words'));
+    }
+
+    public function restore(Word $word)
+    {
+        $word->restore();
+
+        return to_route('admin.words.trash')
+            ->with('type', 'success')
+            ->with('message', "Termine ripristinato con successo!");
+    }
+
+    public function drop(Word $word)
+    {
+        $word->forceDelete();
+
+        return to_route('admin.words.trash')
+            ->with('type', 'danger')
+            ->with('message', "Termine eliminato definitivamente!");
     }
 }

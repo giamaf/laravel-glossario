@@ -1,18 +1,17 @@
 @extends('layouts.app')
 
-@section('title', 'Glossario')
+@section('title', 'Cestino')
 
 @section('content')
     <div class="d-flex justify-content-between align-items-center">
 
-      <h1 class="py-3">Glossario</h1>
+      <h1 class="py-3">Cestino</h1>
 
       <div>
-        {{--# CREATE --}}
-        <a href="{{route('admin.words.create')}}" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Aggiungi termine</a>
+       
 
         {{--# Cestino --}}
-        <a href="{{route('admin.words.trash')}}" class="btn btn-danger"><i class="fa-solid fa-trash"></i> Cestino</a>
+        <a href="{{route('admin.words.index')}}" class="btn btn-primary"><i class="fa-solid fa-arrow-left"></i> Glossario</a>
       </div>
     </div>
 
@@ -47,21 +46,7 @@
                 <td class="text-center">{{ $word->getFormattedDate('updated_at') }}</td>
                 <td>
                   <div class="d-flex gap-2 justify-content-end">
-                    {{--# SHOW --}}
-                    <a href="{{ route('admin.words.show', $word->id)}}" class="btn btn-sm btn-primary">
-                      <i class="far fa-eye"></i>
-                    </a>
-
-                    {{--# EDIT --}}
-                    <a href="{{ route('admin.words.edit', $word->id)}}" class="btn btn-sm btn-secondary">
-                      <i class="fas fa-pencil"></i>
-                    </a>
-
-                    {{--# DESTROY --}}
-                    <form action="{{ route('admin.words.destroy', $word->id) }}" method="POST" id="delete-form">
-                      @csrf
-                      @method('DELETE')
-                      <button class="btn btn-sm btn-danger"><i class="far fa-trash-can"></i></button>
+                   
                     </form>
                   </div>
                 </td>
@@ -69,7 +54,7 @@
             @empty
                <tr>
                 <td colspan="7">
-                  <h3 class="text-center">Non ci sono termini nel glossario.</h3>
+                  <h3 class="text-center">Non ci sono termini nel cestino.</h3>
                 </td>
                </tr>
             
@@ -81,15 +66,5 @@
 
 
 @section('scripts')
-        <script>
-        const deleteForm = document.getElementById('delete-form');
-
-        deleteForm.addEventListener('submit', e => {
-            e.preventDefault();
-
-            const confirmation = confirm('Sei sicuro di voler spostare questo termine nel cestino?');
-
-            if(confirmation) deleteForm.submit();
-        });
-    </script>
+    
 @endsection
