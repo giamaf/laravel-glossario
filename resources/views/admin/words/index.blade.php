@@ -22,6 +22,7 @@
             <th scope="col">#</th>
             <th scope="col">Termine</th>
             <th scope="col">Descrizione</th>
+            <th scope="col" class="text-center">Links</th>
             <th scope="col" class="text-center">Data creazione</th>
             <th scope="col" class="text-center">Ultima modifica</th>
             <th scope="col"></th>
@@ -33,6 +34,15 @@
                 <th scope="row">{{ $word->id }}</th>
                 <td class="text-capitalize">{{ $word->term }}</td>
                 <td class="w-50">{{ $word->description }}</td>
+                <td>
+                  <div class="d-flex flex-column text-center">
+                    @forelse ($word->links as $link)
+                    <a href="{{ $link->url }}">{{ $link->label }}</a>
+                  @empty
+                    <span></span>
+                  @endforelse
+                  </div>
+                </td>
                 <td class="text-center">{{ $word->getFormattedDate('created_at') }}</td>
                 <td class="text-center">{{ $word->getFormattedDate('updated_at') }}</td>
                 <td>

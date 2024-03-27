@@ -13,6 +13,14 @@
     <strong>Data di creazione:</strong> {{$word->getFormattedDate('created_at')}}
     <strong class="ms-5">Ultima modifica:</strong> {{$word->getFormattedDate('updated_at')}}
 </div>
+<div class="mt-2">
+    <strong class="me-2">Link collegati:</strong>
+    @forelse ($word->links as $link)
+    <a href="{{ $link->url }}" class="me-2">{{ $link->label }}</a>
+    @empty
+    <span>Nessuno.</span>
+    @endforelse          
+</div>
 
 <hr>
 <footer class="d-flex justify-content-between align-items-center mt-5">
