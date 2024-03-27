@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Link;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class LinkController extends Controller
 {
@@ -44,7 +45,7 @@ class LinkController extends Controller
      */
     public function edit(Link $link)
     {
-        //
+        return view('admin.links.edit', compact('link'));
     }
 
     /**
@@ -52,7 +53,22 @@ class LinkController extends Controller
      */
     public function update(Request $request, Link $link)
     {
-        //
+        $data = $request->validate(
+            [
+                'label' => ['required', 'string', 'max:15', Rule::unique('links')->ignore($link->id)],
+                'url' => ['required', 'string', Rule::unique('links')->ignore($link->id)]
+            ],
+            [
+                'label.unique' => 'Label già esistente',
+                'label.required' => 'E\' necessario inserire una label',
+                'label.max' => 'La label può avere massimo :max caratteri',
+                'url.unique' => 'Url già esistente',
+                'url.required' => 'E\' necessario inserire un url'
+            ]
+        );
+
+        $link->update($data);
+        return to_route('admin.words.show', $link->word_id)->with('message', 'Link modificato con successo')->with('type', 'success');
     }
 
     /**
@@ -60,6 +76,7 @@ class LinkController extends Controller
      */
     public function destroy(Link $link)
     {
-        //
+        $link->delete();
+        return back();
     }
 }
