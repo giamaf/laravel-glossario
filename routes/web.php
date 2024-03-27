@@ -36,15 +36,19 @@ Route::prefix('/admin')->middleware('auth')->name('admin.')->group(function () {
     // Route::delete('/words/{word}', [WordController::class, 'destroy'])->name('destroy');
 
 
-    //* Rotte Admin softdeletes
+    //* Rotte Admin soft delete
     Route::get('/words/trash', [WordController::class, 'trash'])->name('words.trash');
     Route::patch('/words/{word}/restore', [WordController::class, 'restore'])->name('words.restore')->withTrashed();
     Route::delete('/words/{word}/drop', [WordController::class, 'drop'])->name('words.drop')->withTrashed();
 
 
-    Route::resource('words', WordController::class);
+    //* Rotte Admin Word CRUD
+    Route::resource('words', WordController::class)->withTrashed(['show', 'edit', 'update']);
 });
 
+
+
+//# ROTTE PROFILE
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -46,7 +46,20 @@
                 <td class="text-center">{{ $word->getFormattedDate('updated_at') }}</td>
                 <td>
                   <div class="d-flex gap-2 justify-content-end">
+                    <form action="{{ route('admin.words.restore', $word->id) }}" method="POST">
+                        @csrf
+                        @method('PATCH')
+                        <button type="submit" class="btn btn-success btn-sm"><i class="fa-solid fa-rotate-left"></i></button>
+                    </form>
+                    
+                     <a href="{{ route('admin.words.edit', $word->id)}}" class="btn btn-sm btn-secondary">
+                      <i class="fa-solid fa-pencil"></i>
+                    </a> 
                    
+                    <form action="{{ route('admin.words.drop', $word->id) }}" method="POST" id="delete-form">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger btn-sm"><i class="fa-regular fa-trash-can"></i></button>
                     </form>
                   </div>
                 </td>
@@ -64,7 +77,16 @@
       </table>
 @endsection
 
-
 @section('scripts')
-    
+        <script>
+        const deleteForm = document.getElementById('delete-form');
+
+        deleteForm.addEventListener('submit', e => {
+            e.preventDefault();
+
+            const confirmation = confirm('Sei sicuro di voler eliminare definitivamente questo termine?');
+
+            if(confirmation) deleteForm.submit();
+        });
+    </script>
 @endsection
