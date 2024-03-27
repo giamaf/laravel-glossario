@@ -11,8 +11,8 @@
         {{--# CREATE --}}
         <a href="{{route('admin.words.create')}}" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Aggiungi termine</a>
 
-        {{--TODO Cestino --}}
-        {{-- <a href="{{route('admin.words.trash')}}" class="btn btn-danger"><i class="fa-solid fa-trash"></i> Cestino</a> --}}
+        {{--# Cestino --}}
+        <a href="{{route('admin.words.trash')}}" class="btn btn-danger"><i class="fa-solid fa-trash"></i> Cestino</a>
       </div>
     </div>
 
