@@ -34,11 +34,14 @@ class WordController extends Controller
      */
     public function store(Request $request, Word $word)
     {
+
         // Validazione
         $request->validate(
             [
                 'term' => 'unique:words|required|string|min:2|max:30',
-                'description' => ['string', 'required',]
+                'description' => ['string', 'required'],
+                'links.*.label' => 'nullable|unique:links|string|max:15',
+                'links.*.url' => 'nullable|unique:links|url'
             ],
             [
                 'term.unique' => 'Termine già esistente',
@@ -47,20 +50,26 @@ class WordController extends Controller
                 'term.max' => 'Il termine può avere massimo :max caratteri',
                 'description.required' => 'Inserire una descrizione',
                 'description.string' => 'Descrizione non valida',
+                'links.*.label.unique' => 'Uno dei link inseriti è già esistente',
+                'links.*.label.max' => 'Il nome del link non può superare i 15 caratteri ',
+                'links.*.url.unique' => 'Uno degli url inseriti è già esistente',
+                'links.*.url.url' => 'Uno degli url inseriti ha formato non valido'
             ]
         );
 
         $data = $request->all();
+
         $word = new Word();
         $word->fill($data);
         $word->save();
 
-
-        if (($data['label']) && ($data['url'])) {
-            $new_link = new Link();
-            $new_link->word_id = $word->id;
-            $new_link->fill($data);
-            $new_link->save();
+        foreach ($data['links'] as $link) {
+            if ($link['label'] && $link['url']) {
+                $new_link = new Link();
+                $new_link->word_id = $word->id;
+                $new_link->fill($link);
+                $new_link->save();
+            }
         }
 
         return to_route('admin.words.show', $word->id)

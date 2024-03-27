@@ -1,8 +1,8 @@
 @if ($word->exists)
-    <form class="row py-5" action="{{ route('admin.words.update', $word->id) }}" method="POST">
+    <form class="row py-5 row-gap-3" action="{{ route('admin.words.update', $word->id) }}" method="POST">
         @method('PUT')
     @else
-        <form class="row py-5" action="{{ route('admin.words.store') }}" method="POST">
+        <form class="row py-5 row-gap-3 " action="{{ route('admin.words.store') }}" method="POST">
 @endif
 @csrf
 
@@ -41,7 +41,7 @@
 </div>
 
 {{-- * LINKS  --}}
-<div class="col-12">
+<div class="col-6">
     {{-- # COLLAPSE 1 --}}
     <p class="d-inline-flex">
         <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseLink" role="button" aria-expanded="false"
@@ -49,51 +49,124 @@
             Aggiungi Link
         </a>
     </p>
-    <div class="collapse" id="collapseLink">
+    <div class="collapse @error('links.*') show @enderror" id="collapseLink">
+        {{-- Label 1 --}}
         <div class="mb-3">
             <label for="label" class="form-label">Label</label>
-            <input type="text" class="form-control" id="label" name="label">
+            <input type="text"
+                class="form-control @error('links.0.label') is-invalid @elseif (old('links.0.label', '')) is-valid @enderror"
+                id="label" name="links[0][label]" value="{{ old('links.0.label', '') }}">
+            @error('links.0.label')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @else
+                <div class="form-text">
+                    <p>Inserisci il nome del link</p>
+                </div>
+            @enderror
         </div>
+        {{-- URL 1 --}}
         <div class="mb-3">
             <label for="url" class="form-label">URL</label>
-            <input type="url" class="form-control" id="url" name="url">
+            <input type="url"
+                class="form-control @error('links.0.url') is-invalid @elseif (old('links.0.url', '')) is-valid @enderror"
+                id="url" name="links[0][url]" value="{{ old('links.0.url', '') }}">
+            @error('links.0.url')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @else
+                <div class="form-text">
+                    <p>Inserisci l'url</p>
+                </div>
+            @enderror
         </div>
 
 
         {{-- # COLLAPSE 2 --}}
-        {{-- <p class="d-inline-flex">
+        <p class="d-inline-flex">
             <a class="btn btn-sm btn-primary" data-bs-toggle="collapse" href="#collapseLink2" role="button"
                 aria-expanded="false" aria-controls="collapseLink">
                 <i class="fas fa-plus fa-lg"></i>
             </a>
         </p>
-        <div class="collapse" id="collapseLink2">
+        <div class="collapse @error('links.*') show @enderror" id="collapseLink2">
+            {{-- Label 2 --}}
             <div class="mb-3">
                 <label for="label2" class="form-label">Label</label>
-                <input type="text" class="form-control" id="label2" name="labels[]" disabled>
+                <input type="text"
+                    class="form-control @error('links.1.label') is-invalid @elseif (old('links.1.label', '')) is-valid @enderror"
+                    id="label2" name="links[1][label]" value="{{ old('links.1.label', '') }}">
+                @error('links.1.label')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @else
+                    <div class="form-text">
+                        <p>Inserisci il nome del link</p>
+                    </div>
+                @enderror
             </div>
+            {{-- URL 2 --}}
             <div class="mb-3">
                 <label for="url2" class="form-label">URL</label>
-                <input type="url" class="form-control" id="url2" name="urls[]" disabled>
+                <input type="url"
+                    class="form-control @error('links.1.url') is-invalid @elseif (old('links.1.url', '')) is-valid @enderror"
+                    id="url2" name="links[1][url]" value="{{ old('links.1.url', '') }}">
+                @error('links.1.url')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @else
+                    <div class="form-text">
+                        <p>Inserisci l'url</p>
+                    </div>
+                @enderror
             </div>
 
+            {{-- # COLLAPSE 3 --}}
             <p class="d-inline-flex">
                 <a class="btn btn-sm btn-primary" data-bs-toggle="collapse" href="#collapseLink3" role="button"
                     aria-expanded="false" aria-controls="collapseLink">
                     <i class="fas fa-plus fa-lg"></i>
                 </a>
             </p>
-            <div class="collapse" id="collapseLink3">
+            <div class="collapse @error('links.*') show @enderror" id="collapseLink3">
+                {{-- Label 3 --}}
                 <div class="mb-3">
                     <label for="label3" class="form-label">Label</label>
-                    <input type="text" class="form-control" id="label3" name="labels[]" disabled>
+                    <input type="text"
+                        class="form-control @error('links.2.label') is-invalid @elseif (old('links.2.label', '')) is-valid @enderror"
+                        id="label3" name="links[2][label]" value="{{ old('links.2.label', '') }}">
+                    @error('links.2.label')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @else
+                        <div class="form-text">
+                            <p>Inserisci il nome del link</p>
+                        </div>
+                    @enderror
                 </div>
+                {{-- URL 3 --}}
                 <div class="mb-3">
                     <label for="url3" class="form-label">URL</label>
-                    <input type="url" class="form-control" id="url3" name="urls[]" >
+                    <input type="url"
+                        class="form-control @error('links.2.url') is-invalid @elseif (old('links.2.url', '')) is-valid @enderror"
+                        id="url3" name="links[2][url]" value="{{ old('links.2.url', '') }}">
+                    @error('links.2.url')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @else
+                        <div class="form-text">
+                            <p>Inserisci l'url</p>
+                        </div>
+                    @enderror
                 </div>
             </div>
-        </div> --}}
+        </div>
     </div>
 </div>
 
