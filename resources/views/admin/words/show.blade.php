@@ -36,8 +36,8 @@
                         {{-- Bottoni Link --}}
                         <div class="d-flex align-items-center column-gap-2">
                             {{-- # Edit Link --}}
-                            <span class="badge rounded-pill">
-                                <a href="{{ route('admin.links.edit', $link->id) }}" class=" text-warning">
+                            <span class="btn btn-sm btn-outline-warning text-bg-dark ">
+                                <a href="{{ route('admin.links.edit', $link->id) }}" class="text-warning">
                                     <i class="fas fa-pencil"></i>
                                 </a>
                             </span>
@@ -46,7 +46,7 @@
                                 onclick="this.submit()">
                                 @csrf
                                 @method('DELETE')
-                                <span type='submit' class="badge text-danger rounded-pill ">
+                                <span type='submit' class="btn btn-sm btn-outline-danger text-bg-dark text-danger ">
                                     <i class="fas fa-trash"></i>
                                 </span>
                             </form>
@@ -78,4 +78,8 @@
             </form>
         </div>
     </footer>
+@endsection
+
+@section('scripts')
+    @vite('resources/js/delete_confirmation.js')
 @endsection
