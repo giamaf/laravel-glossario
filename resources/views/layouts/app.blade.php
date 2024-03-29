@@ -40,6 +40,9 @@
             {{-- ! Alert  --}}
             @include('layouts.includes.alert')
 
+            {{-- ! Modal --}}
+            @include('layouts.includes.modal')
+
             @yield('content')
         </main>
     </div>
