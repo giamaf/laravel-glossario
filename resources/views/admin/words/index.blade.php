@@ -64,8 +64,8 @@
                             </a>
 
                             {{-- # DESTROY --}}
-                            <form action="{{ route('admin.words.destroy', $word->id) }}" method="POST"
-                                class="delete-form">
+                            <form action="{{ route('admin.words.destroy', $word->id) }}" method="POST" class="delete-form"
+                                data-bs-toggle="modal" data-bs-target="#modal" data-term="{{ $word->term }}">
                                 @csrf
                                 @method('DELETE')
                                 <button class="btn btn-sm btn-danger"><i class="far fa-trash-can"></i></button>

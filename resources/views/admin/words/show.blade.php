@@ -69,7 +69,8 @@
                 <i class="fas fa-pencil me-2"></i>Modifica
             </a>
 
-            <form action="{{ route('admin.words.destroy', $word) }}" method="POST" class="delete-form">
+            <form action="{{ route('admin.words.destroy', $word) }}" method="POST" class="delete-form"
+                data-bs-toggle="modal" data-bs-target="#modal" data-term="{{ $word->term }}">
                 @csrf
                 @method('DELETE')
                 <button type='submit' class="btn btn-sm btn-danger">
