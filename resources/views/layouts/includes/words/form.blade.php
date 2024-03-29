@@ -170,12 +170,18 @@
     </div>
 </div>
 
-<div class="col-12 d-flex gap-3 justify-content-end">
-    <button class="btn btn-sm btn-warning" type="reset">
-        <i class="fa-solid fa-eraser"></i>
-        Reset</button>
-    <button type="submit" class="btn btn-sm btn-success ">
-        <i class="fa-solid fa-floppy-disk"></i>
-        Salva</button>
+{{-- Buttons --}}
+<div class="col-12">
+    <div class="col-12 d-flex gap-2 justify-content-end">
+        <a href="{{ route('admin.words.index') }}" class="btn btn-sm btn-secondary">
+            <i class="fas fa-arrow-left"></i>
+            Indietro</a>
+        <button class="btn btn-sm btn-warning" type="reset">
+            <i class="fa-solid fa-eraser"></i>
+            Reset</button>
+        <button type="submit" class="btn btn-sm btn-success ">
+            <i class="fa-solid fa-floppy-disk"></i>
+            Salva</button>
+    </div>
 </div>
 </form>
