@@ -129,8 +129,8 @@ class WordController extends Controller
     {
         $word->delete();
 
-        //todo Inserire messaggi di feedback
-        return to_route('admin.words.index');
+        return to_route('admin.words.index')->with('type', 'warning')
+            ->with('message', "Termine spostato nel cestino!");
     }
 
     // # SOFT DELETE
@@ -158,5 +158,40 @@ class WordController extends Controller
         return to_route('admin.words.trash')
             ->with('type', 'danger')
             ->with('message', "Termine eliminato definitivamente!");
+    }
+
+    // # MASSIVE ERASE AND MASSIVE RESTORE
+
+    public function massiveDrop()
+    {
+        // Recupero tutti i termini nel cestino
+        $trashed_terms = Word::onlyTrashed()->get();
+
+        // Per ogni termine nel cestino...
+        foreach ($trashed_terms as $term) {
+
+            // Elimino definitivamente
+            $term->forceDelete();
+        }
+
+
+        return to_route('admin.words.trash')->with('type', 'danger')
+            ->with('message', "Cestino svuotato con successo!");
+    }
+
+    public function massiveRestore()
+    {
+        // Recupero tutti i termini nel cestino
+        $trashed_terms = Word::onlyTrashed()->get();
+
+        // Per ogni termine nel cestino...
+        foreach ($trashed_terms as $term) {
+
+            // Ripristino
+            $term->restore();
+        }
+
+        return to_route('admin.words.trash')->with('type', 'success')
+            ->with('message', "Termini ripristinati con successo!");
     }
 }
