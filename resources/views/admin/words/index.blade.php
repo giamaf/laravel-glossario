@@ -32,9 +32,13 @@
         <tbody>
             @forelse ($words as $word)
                 <tr>
+                    {{-- ID --}}
                     <th scope="row">{{ $word->id }}</th>
-                    <td class="text-capitalize">{{ $word->term }}</td>
-                    <td class="w-50">{{ $word->description }}</td>
+                    {{-- TERM --}}
+                    <td class="text-capitalize text-wrap ">{{ $word->term }}</td>
+                    {{-- Descrizione --}}
+                    <td>{{ $word->getAbstract(200) }}</td>
+                    {{-- Links --}}
                     <td>
                         <div class="d-flex flex-column text-center">
                             @forelse ($word->links as $link)
@@ -44,6 +48,7 @@
                             @endforelse
                         </div>
                     </td>
+                    {{-- Date --}}
                     <td class="text-center">{{ $word->getFormattedDate('created_at') }}</td>
                     <td class="text-center">{{ $word->getFormattedDate('updated_at') }}</td>
                     <td>
@@ -59,7 +64,8 @@
                             </a>
 
                             {{-- # DESTROY --}}
-                            <form action="{{ route('admin.words.destroy', $word->id) }}" method="POST" id="delete-form">
+                            <form action="{{ route('admin.words.destroy', $word->id) }}" method="POST"
+                                class="delete-form">
                                 @csrf
                                 @method('DELETE')
                                 <button class="btn btn-sm btn-danger"><i class="far fa-trash-can"></i></button>
@@ -82,15 +88,5 @@
 
 
 @section('scripts')
-    <script>
-        const deleteForm = document.getElementById('delete-form');
-
-        deleteForm.addEventListener('submit', e => {
-            e.preventDefault();
-
-            const confirmation = confirm('Sei sicuro di voler spostare questo termine nel cestino?');
-
-            if (confirmation) deleteForm.submit();
-        });
-    </script>
+    @vite('resources/js/delete_confirmation.js')
 @endsection
