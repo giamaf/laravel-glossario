@@ -102,7 +102,9 @@ class WordController extends Controller
         $data = $request->validate(
             [
                 'term' => ['required', 'string', 'min:2', 'max:30', Rule::unique('words')->ignore($word->id)],
-                'description' => ['string', 'required',]
+                'description' => ['string', 'required',],
+                'links.*.label' => 'nullable|unique:links|string|max:15',
+                'links.*.url' => 'nullable|unique:links|url'
             ],
             [
                 'term.unique' => 'Termine già esistente',
@@ -111,14 +113,26 @@ class WordController extends Controller
                 'term.max' => 'Il termine può avere massimo :max caratteri',
                 'description.required' => 'Inserire una descrizione',
                 'description.string' => 'Descrizione non valida',
+                'links.*.label.unique' => 'Uno dei link inseriti è già esistente',
+                'links.*.label.max' => 'Il nome del link non può superare i 15 caratteri ',
+                'links.*.url.unique' => 'Uno degli url inseriti è già esistente',
+                'links.*.url.url' => 'Uno degli url inseriti ha formato non valido'
             ]
         );
 
         $word->update($data);
 
-        //todo Fixare il messaggio dell'alert all'update
+        foreach ($data['links'] as $link) {
+            if ($link['label'] && $link['url']) {
+                $new_link = new Link();
+                $new_link->word_id = $word->id;
+                $new_link->fill($link);
+                $new_link->save();
+            }
+        }
+
         return to_route('admin.words.show', $word->id)
-            ->with('message', 'Termine modificato con successo')
+            ->with('message', 'Termine modificato con successo!')
             ->with('type', 'warning');
     }
 
