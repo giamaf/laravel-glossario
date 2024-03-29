@@ -7,12 +7,26 @@
 
         <h1 class="py-3">Cestino</h1>
 
-        <div>
-
-
+        <div class="d-flex justify-content-between align-items-center gap-2">
             {{-- # Cestino --}}
-            <a href="{{ route('admin.words.index') }}" class="btn btn-primary"><i class="fa-solid fa-arrow-left"></i>
+            <a href="{{ route('admin.words.index') }}" class="btn btn-primary btn-sm"><i class="fa-solid fa-arrow-left"></i>
                 Glossario</a>
+            <form method="POST" action="{{ route('admin.words.massive-restore') }}" class="btn btn-success btn-sm"
+                onclick="this.submit()">
+                <i class="fa-solid fa-rotate-left"></i>
+                @csrf
+                @method('PATCH')
+                Ripristina tutti
+            </form>
+            <form method="POST" action="{{ route('admin.words.massive-drop') }}" class="delete-form" data-bs-toggle="modal"
+                data-bs-target="#modal">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-danger btn-sm">
+                    <i class="fa-regular fa-trash-can"></i>
+                    Svuota
+                    cestino</button>
+            </form>
         </div>
     </div>
 
@@ -54,11 +68,12 @@
                                         class="fa-solid fa-rotate-left"></i></button>
                             </form>
 
-                            <a href="{{ route('admin.words.edit', $word->id) }}" class="btn btn-sm btn-secondary">
+                            <a href="{{ route('admin.words.edit', $word->id) }}" class="btn btn-sm btn-warning">
                                 <i class="fa-solid fa-pencil"></i>
                             </a>
 
-                            <form class="delete-form" action="{{ route('admin.words.drop', $word->id) }}" method="POST">
+                            <form class="delete-form" action="{{ route('admin.words.drop', $word->id) }}" method="POST"
+                                data-bs-toggle="modal" data-bs-target="#modal" data-term="{{ $word->term }}">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger btn-sm"><i
