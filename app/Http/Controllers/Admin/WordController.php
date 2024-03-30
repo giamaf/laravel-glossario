@@ -181,16 +181,20 @@ class WordController extends Controller
         // Recupero tutti i termini nel cestino
         $trashed_terms = Word::onlyTrashed()->get();
 
-        // Per ogni termine nel cestino...
-        foreach ($trashed_terms as $term) {
+        // Se c'è qualcosa nel cestino
+        if (count($trashed_terms)) {
+            // Per ogni termine nel cestino...
+            foreach ($trashed_terms as $term) {
+                // Elimino definitivamente
+                $term->forceDelete();
+            }
 
-            // Elimino definitivamente
-            $term->forceDelete();
+            $message = 'Cestino svuotato con successo!';
         }
 
 
         return to_route('admin.words.trash')->with('type', 'danger')
-            ->with('message', "Cestino svuotato con successo!");
+            ->with('message', $message);
     }
 
     public function massiveRestore()
@@ -198,14 +202,20 @@ class WordController extends Controller
         // Recupero tutti i termini nel cestino
         $trashed_terms = Word::onlyTrashed()->get();
 
-        // Per ogni termine nel cestino...
-        foreach ($trashed_terms as $term) {
+        // Preparo una variabile per inserire un messaggio
+        $message = 'Il cestino è vuoto!';
 
-            // Ripristino
-            $term->restore();
+        // Se c'è qualcosa nel cestino
+        if (count($trashed_terms)) {
+            // Per ogni termine nel cestino...
+            foreach ($trashed_terms as $term) {
+
+                // Ripristino
+                $term->restore();
+            }
+            $message = 'Termini ripristinati con successo!';
         }
 
-        return to_route('admin.words.trash')->with('type', 'success')
-            ->with('message', "Termini ripristinati con successo!");
+        return to_route('admin.words.trash')->with('message', $message)->with('type', 'secondary');
     }
 }

@@ -8,7 +8,8 @@
             </div>
             <div class="modal-body"></div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Back</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                    id="modal-back-button">Back</button>
                 <button type="button" class="btn btn-secondary" id="modal-delete-confirmation">Confirm</button>
             </div>
         </div>

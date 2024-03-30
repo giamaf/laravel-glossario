@@ -85,7 +85,7 @@
             @empty
                 <tr>
                     <td colspan="7">
-                        <h3 class="text-center">Non ci sono termini nel cestino.</h3>
+                        <h3 class="text-center" id="trash-title">Non ci sono termini nel cestino.</h3>
                     </td>
                 </tr>
 
