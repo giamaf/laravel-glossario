@@ -23,4 +23,4 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::apiResource('words', WordController::class)->only('index');
-Route::get('words/{id}', [WordController::class, 'show']);
+Route::get('words/{slug}', [WordController::class, 'show']);
