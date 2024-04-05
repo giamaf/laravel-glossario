@@ -28,7 +28,7 @@ class WordController extends Controller
     public function create()
     {
         $tags = Tag::select('id', 'label')->get();
-        return view('admin.words.create', ['word' => new Word(), 'tags'=> $tags]);
+        return view('admin.words.create', ['word' => new Word(), 'tags' => $tags]);
     }
 
     /**
@@ -36,7 +36,6 @@ class WordController extends Controller
      */
     public function store(Request $request, Word $word)
     {
-
         // Validazione
         $request->validate(
             [
@@ -44,7 +43,7 @@ class WordController extends Controller
                 'description' => ['string', 'required'],
                 'links.*.label' => 'nullable|unique:links|string|max:15',
                 'links.*.url' => 'nullable|unique:links|url',
-                'tags' => 'nullable|exists:tags, id'
+                'tags' => 'nullable|exists:tags,id'
             ],
             [
                 'term.unique' => 'Termine già esistente',
@@ -57,12 +56,11 @@ class WordController extends Controller
                 'links.*.label.max' => 'Il nome del link non può superare i 15 caratteri ',
                 'links.*.url.unique' => 'Uno degli url inseriti è già esistente',
                 'links.*.url.url' => 'Uno degli url inseriti ha formato non valido',
-                'tags.exists' => 'Tag scelto non è presente'
+                'tags_id.exists' => 'Tag scelto non è presente'
             ]
         );
 
         $data = $request->all();
-
         $word = new Word();
         $word->fill($data);
         $word->save();
@@ -76,10 +74,10 @@ class WordController extends Controller
             }
         }
 
-        if (Arr::exists($data, 'tags')){
-            $word -> tags()->attach($data['tags']);
+        if (Arr::exists($data, 'tags')) {
+            $word->tags()->attach($data['tags']);
         }
-        return to_route('admin.words.show', $word->id)
+        return to_route('admin.words.show', $word)
             ->with('message', 'Termine creato con successo')
             ->with('type', 'success');
     }
@@ -113,7 +111,7 @@ class WordController extends Controller
                 'description' => ['string', 'required',],
                 'links.*.label' => 'nullable|unique:links|string|max:15',
                 'links.*.url' => 'nullable|unique:links|url',
-                'tags' => 'nullable|exists:tags, id'
+                'tags' => 'nullable|exists:tags,id'
             ],
             [
                 'term.unique' => 'Termine già esistente',
@@ -126,7 +124,7 @@ class WordController extends Controller
                 'links.*.label.max' => 'Il nome del link non può superare i 15 caratteri ',
                 'links.*.url.unique' => 'Uno degli url inseriti è già esistente',
                 'links.*.url.url' => 'Uno degli url inseriti ha formato non valido',
-                'tags.exists' => 'Tag scelto non è presente'
+                'tags_id.exists' => 'Tag scelto non è presente'
             ]
         );
 
@@ -141,10 +139,10 @@ class WordController extends Controller
             }
         }
 
-        if (Arr::exists($data, 'tags')){
-            $word -> tags()->sync($data['tags']);
+        if (Arr::exists($data, 'tags')) {
+            $word->tags()->sync($data['tags']);
         } elseif (!Arr::exists($data, 'tags') && $word->has('tags')) {
-            $word -> tags()->detach();
+            $word->tags()->detach();
         }
 
         return to_route('admin.words.show', $word->id)
