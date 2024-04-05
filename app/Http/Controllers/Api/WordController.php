@@ -14,7 +14,7 @@ class WordController extends Controller
     public function index()
     {
         $words = Word::all();
-        return response()->json(compact('words'));
+        return response()->json($words);
     }
 
     /**
