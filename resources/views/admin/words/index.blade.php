@@ -24,6 +24,7 @@
                 <th scope="col">Termine</th>
                 <th scope="col">Descrizione</th>
                 <th scope="col" class="text-center">Links</th>
+                <th scope="col" class="text-center">Tags</th>
                 <th scope="col" class="text-center">Data creazione</th>
                 <th scope="col" class="text-center">Ultima modifica</th>
                 <th scope="col"></th>
@@ -48,6 +49,13 @@
                             @endforelse
                         </div>
                     </td>
+                    <td>
+                            @forelse ($word->tags as $tag)
+                            <span class="badge rounded-pill text-black" style="background-color:{{$tag->color}}"> {{ $tag->label }}</span>
+                            @empty
+                                <span></span>
+                            @endforelse
+                     </td>
                     {{-- Date --}}
                     <td class="text-center">{{ $word->getFormattedDate('created_at') }}</td>
                     <td class="text-center">{{ $word->getFormattedDate('updated_at') }}</td>
@@ -75,7 +83,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="7">
+                    <td colspan="8">
                         <h3 class="text-center">Non ci sono termini nel glossario.</h3>
                     </td>
                 </tr>

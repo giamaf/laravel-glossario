@@ -23,6 +23,21 @@
     @enderror
 </div>
 
+<!-- Checkbox -->
+<div class="col-6 d-flex align-items-center gap-2">
+    @forelse($tags as $tag)
+        <div class="form-check">
+            <input name="tags[]" class="form-check-input" type="checkbox" value="{{$tag->id}}" id="tag-{{$tag->id}}">
+            <label class="form-check-label" for="tag-{{$tag->id}}">
+                {{$tag->label}}
+            </label>
+</div>
+    @empty
+        
+    @endforelse
+
+</div>
+
 {{-- * DESCRIPTION  --}}
 <div class="col-12">
     <label for="description" class="form-label">Descrizione</label>
