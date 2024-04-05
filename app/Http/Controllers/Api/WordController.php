@@ -28,9 +28,11 @@ class WordController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Word $word)
+    public function show(String $slug)
     {
-        //
+        $word = Word::whereSlug($slug)->with('links')->with('tags')->first();
+        if (!$word) return response(null, 404);
+        return response()->json($word);
     }
 
     /**
