@@ -96,7 +96,8 @@ class WordController extends Controller
     public function edit(Word $word)
     {
         $tags = Tag::select('id', 'label')->get();
-        return view('admin.words.edit', compact('word', 'tags'));
+        $prev_tags = $word->tags->pluck('id')->toArray();
+        return view('admin.words.edit', compact('word', 'tags', 'prev_tags'));
     }
 
     /**

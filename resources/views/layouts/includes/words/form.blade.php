@@ -27,13 +27,13 @@
 <div class="col-6 d-flex align-items-center gap-2">
     @forelse($tags as $tag)
         <div class="form-check">
-            <input name="tags[]" class="form-check-input" type="checkbox" value="{{$tag->id}}" id="tag-{{$tag->id}}">
-            <label class="form-check-label" for="tag-{{$tag->id}}">
-                {{$tag->label}}
+            <input name="tags[]" @if (in_array($tag->id, old('tags', $prev_tags ?? []))) checked @endif class="form-check-input"
+                type="checkbox" value="{{ $tag->id }}" id="tag-{{ $tag->id }}">
+            <label class="form-check-label" for="tag-{{ $tag->id }}">
+                {{ $tag->label }}
             </label>
-</div>
+        </div>
     @empty
-        
     @endforelse
 
 </div>

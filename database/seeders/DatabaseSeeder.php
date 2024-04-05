@@ -15,10 +15,9 @@ class DatabaseSeeder extends Seeder
         $this->call(TagSeeder::class);
         \App\Models\Word::factory(5)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
-
+        \App\Models\User::factory()->create([
+            'name' => 'Test User',
+            'email' => 'test@example.com',
+        ]);
     }
 }

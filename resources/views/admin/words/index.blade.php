@@ -36,9 +36,9 @@
                     {{-- ID --}}
                     <th scope="row">{{ $word->id }}</th>
                     {{-- TERM --}}
-                    <td class="text-capitalize text-wrap ">{{ $word->term }}</td>
+                    <td class="text-capitalize " style="word-break: break-all">{{ $word->term }}</td>
                     {{-- Descrizione --}}
-                    <td>{{ $word->getAbstract(200) }}</td>
+                    <td style="word-break: break-all">{{ $word->getAbstract(100) }}</td>
                     {{-- Links --}}
                     <td>
                         <div class="d-flex flex-column text-center">
@@ -50,12 +50,13 @@
                         </div>
                     </td>
                     <td>
-                            @forelse ($word->tags as $tag)
-                            <span class="badge rounded-pill text-black" style="background-color:{{$tag->color}}"> {{ $tag->label }}</span>
-                            @empty
-                                <span></span>
-                            @endforelse
-                     </td>
+                        @forelse ($word->tags as $tag)
+                            <span class="badge rounded-pill text-black" style="background-color:{{ $tag->color }}">
+                                {{ $tag->label }}</span>
+                        @empty
+                            <span></span>
+                        @endforelse
+                    </td>
                     {{-- Date --}}
                     <td class="text-center">{{ $word->getFormattedDate('created_at') }}</td>
                     <td class="text-center">{{ $word->getFormattedDate('updated_at') }}</td>
