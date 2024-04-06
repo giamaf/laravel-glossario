@@ -13,7 +13,7 @@ class WordController extends Controller
      */
     public function index()
     {
-        $words = Word::all();
+        $words = Word::orderBy('term', 'asc')->get();
         return response()->json($words);
     }
 
