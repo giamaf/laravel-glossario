@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -32,5 +34,16 @@ class Word extends Model
     public function tags()
     {
         return $this->belongsToMany(Tag::class);
+    }
+
+    // Mutators che quando viene assegnato il term ad una word crea automaticamente lo slug
+    protected function term(): Attribute
+    {
+        return Attribute::make(
+            set: fn (string $value) => [
+                'term' => $value,
+                'slug' => Str::slug($value)
+            ]
+        );
     }
 }

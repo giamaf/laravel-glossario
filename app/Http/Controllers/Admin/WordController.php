@@ -65,7 +65,6 @@ class WordController extends Controller
         $data = $request->all();
         $word = new Word();
         $word->fill($data);
-        $word->slug = Str::slug($word->term);
         $word->save();
 
         foreach ($data['links'] as $link) {
@@ -131,7 +130,6 @@ class WordController extends Controller
                 'tags_id.exists' => 'Tag scelto non è presente'
             ]
         );
-        $data['slug'] = Str::slug($data['term']);
         $word->update($data);
 
         foreach ($data['links'] as $link) {

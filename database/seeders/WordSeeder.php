@@ -70,13 +70,10 @@ class WordSeeder extends Seeder
 
         foreach ($words as $word) {
             $new_word = new Word();
-            $word['slug'] = Str::slug($word['term']);
 
             // Assegno i valori alla nuova istanza di word
             $new_word->term = $word['term'];
-            $new_word->slug = $word['slug'];
             $new_word->description = $word['description'];
-            // $new_word->tags = $word['tags'];
 
             // $new_word->fill($word);
             $new_word->save();
