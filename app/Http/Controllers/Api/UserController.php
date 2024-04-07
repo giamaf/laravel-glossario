@@ -11,7 +11,7 @@ class UserController extends Controller
     public function __invoke()
     {
 
-        $users = User::select('id', 'name', 'image', 'email')->get();
+        $users = User::select('id', 'name', 'description', 'image', 'email')->get();
         return response()->json($users);
     }
 }
