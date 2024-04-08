@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Tag;
+use Illuminate\Support\Str;
+
 class TagSeeder extends Seeder
 {
     /**
@@ -26,6 +28,7 @@ class TagSeeder extends Seeder
         foreach ($tags as $tag) {
             $new_tag = new Tag();
             $new_tag->label = $tag['label'];
+            $new_tag->slug = Str::slug($tag['label']);
             $new_tag->color = $tag['color'];
 
             $new_tag->save();
