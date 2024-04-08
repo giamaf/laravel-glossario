@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\TagWordController;
 use App\Http\Controllers\Api\WordController;
 use App\Http\Controllers\Api\UserController;
 use App\Models\Word;
@@ -26,3 +27,4 @@ use Illuminate\Support\Facades\Route;
 Route::apiResource('words', WordController::class)->only('index');
 Route::get('words/{slug}', [WordController::class, 'show']);
 Route::get('users', UserController::class);
+Route::get('tags/{slug}/words', TagWordController::class);
