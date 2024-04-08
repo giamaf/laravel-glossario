@@ -49,7 +49,8 @@
                             @endforelse
                         </div>
                     </td>
-                    <td>
+                    {{-- Tags --}}
+                    <td class="text-center">
                         @forelse ($word->tags as $tag)
                             <span class="badge rounded-pill text-black" style="background-color:{{ $tag->color }}">
                                 {{ $tag->label }}</span>
@@ -57,6 +58,7 @@
                             <span></span>
                         @endforelse
                     </td>
+
                     {{-- Date --}}
                     <td class="text-center">{{ $word->getFormattedDate('created_at') }}</td>
                     <td class="text-center">{{ $word->getFormattedDate('updated_at') }}</td>
